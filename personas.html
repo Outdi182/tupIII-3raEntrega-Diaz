@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personas con JavaScript</title>
+
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <a href="index.html" class="boton-volver">
+        ← Volver al Inicio
+    </a>
+
+    <h1>2do Ejercicio - Personas con JavaScript</h1>
+
+    <form id="formPersona">
+
+        <input
+            type="text"
+            id="nombre"
+            placeholder="Nombre">
+
+        <input
+            type="text"
+            id="apellido"
+            placeholder="Apellido">
+
+        <input
+            type="number"
+            id="edad"
+            placeholder="Edad">
+
+        <input
+            type="number"
+            id="altura"
+            placeholder="Altura (cm)">
+
+        <input
+            type="number"
+            step="0.01"
+            id="peso"
+            placeholder="Peso (kg)">
+
+        <button type="submit">
+            Agregar Persona
+        </button>
+
+    </form>
+
+    <p id="mensajeError"></p>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Altura (cm) </th>
+                <th>Peso</th>
+                <th>IMC</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="tablaPersonas">
+
+        </tbody>
+
+    </table>
+
+    <script src="personas.js"></script>
+
+</body>
+
+</html>
