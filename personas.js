@@ -6,12 +6,16 @@ document.getElementById("formPersona");
 const tabla =
 document.getElementById("tablaPersonas");
 
+const mensajeError =
+document.getElementById("mensajeError");
+
 function calcularIMC(peso, altura)
 {
+    const alturaMetros = altura / 100;
     return Number(
         (
             peso /
-            (altura * altura)
+            (alturaMtros * alturaMetros)
         ).toFixed(2)
     );
 }
@@ -73,9 +77,11 @@ function renderTabla()
             <td>${persona.altura}</td>
             <td>${persona.peso}</td>
             <td>${imc}</td>
+
             <td class="${estado.clase}">
                 ${estado.texto}
             </td>
+
             <td>
                 <button onclick="eliminarPersona(${indice})">
                     Eliminar
@@ -101,31 +107,43 @@ form.addEventListener("submit",(event)=>
     const nombre =
     document.getElementById("nombre").value.trim();
 
-    if(nombre === "")
+    const apellido =
+    document.getElementById("apellido").value.trim();
+
+    const edad =
+    document.getElementById("edad").value.trim();
+
+    const altura =
+    document.getElementById("altura").value.trim();
+
+    const peso =
+    document.getElementById("peso").value.trim();
+
+    if(
+        nombre === "" ||
+        apellido === "" ||
+        edad === "" ||
+        altura === "" ||
+        peso === ""
+    )
     {
-        alert("Ingrese un nombre");
+        mensajeError.textContent =
+        "Todos los campos son obligatorios.";
+
+        mensajeError.className =
+        "error";
+
         return;
     }
 
+    mensajeError.textContent = "";
+
     personas.push({
-        nombre:
         nombre,
-
-        apellido:
-        document.getElementById("apellido").value,
-
-        edad:
-        document.getElementById("edad").value,
-
-        altura:
-        Number(
-            document.getElementById("altura").value
-        ),
-
-        peso:
-        Number(
-            document.getElementById("peso").value
-        )
+        apellido,
+        edad,
+        altura:Number(altura),
+        peso:Number(peso)
     });
 
     renderTabla();
