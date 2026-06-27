@@ -12,10 +12,11 @@ document.getElementById("mensajeError");
 function calcularIMC(peso, altura)
 {
     const alturaMetros = altura / 100;
+
     return Number(
         (
             peso /
-            (alturaMtros * alturaMetros)
+            (alturaMetros * alturaMetros)
         ).toFixed(2)
     );
 }

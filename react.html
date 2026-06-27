@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Personas con React</title>
+
+<link rel="stylesheet"
+href="estilos.css">
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.7/babel.min.js"></script>
+
+</head>
+
+<body>
+<a href="index.html"
+class="boton-volver">
+← Volver al Inicio
+</a>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+const { useState } = React;
+
+function App()
+{
+    const [personas,setPersonas] =
+    useState([]);
+
+    const [error,setError] =
+    useState("");
+
+    const [formulario,
+    setFormulario] =
+    useState({
+        nombre:"",
+        apellido:"",
+        edad:"",
+        altura:"",
+        peso:""
+    });
+
+    function calcularIMC(
+        peso,
+        altura
+    )
+    {
+        const alturaMetros =
+        altura / 100;
+
+        return Number(
+            (
+                peso /
+                (alturaMetros * alturaMetros)
+            ).toFixed(2)
+        );
+    }
+
+    function clasificarIMC(imc)
+    {
+        if(imc < 18.5)
+        {
+            return "Bajo peso";
+        }
+
+        if(imc < 25)
+        {
+            return "Normal";
+        }
+
+        if(imc < 30)
+        {
+            return "Sobrepeso";
+        }
+
+        return "Obesidad";
+    }
+
+    function cambiarCampo(e)
+    {
+        setFormulario({
+            ...formulario,
+            [e.target.name]:
+            e.target.value
+        });
+    }
+
+    function agregarPersona(e)
+    {
+        e.preventDefault();
+
+        if(
+            formulario.nombre.trim() === "" ||
+            formulario.apellido.trim() === "" ||
+            formulario.edad.trim() === "" ||
+            formulario.altura.trim() === "" ||
+            formulario.peso.trim() === ""
+        )
+        {
+            setError(
+                "Todos los campos son obligatorios."
+            );
+
+            return;
+        }
+
+        setError("");
+
+        setPersonas([
+            ...personas,
+            formulario
+        ]);
+
+        setFormulario({
+            nombre:"",
+            apellido:"",
+            edad:"",
+            altura:"",
+            peso:""
+        });
+    }
+
+    function eliminarPersona(indice)
+    {
+        setPersonas(
+            personas.filter(
+                (_,i)=>i !== indice
+            )
+        );
+    }
+
+    return(
+        <div>
+
+            <h1>
+                3er Ejercicio - Personas con React
+            </h1>
+
+            <form onSubmit={agregarPersona}>
+
+                <input
+                name="nombre"
+                placeholder="Nombre"
+                value={formulario.nombre}
+                onChange={cambiarCampo}
+                />
+
+                <input
+                name="apellido"
+                placeholder="Apellido"
+                value={formulario.apellido}
+                onChange={cambiarCampo}
+                />
+
+                <input
+                name="edad"
+                type="number"
+                placeholder="Edad"
+                value={formulario.edad}
+                onChange={cambiarCampo}
+                />
+
+                <input
+                name="altura"
+                type="number"
+                step="0.01"
+                placeholder="Altura (cm)"
+                value={formulario.altura}
+                onChange={cambiarCampo}
+                />
+
+                <input
+                name="peso"
+                type="number"
+                step="0.01"
+                placeholder="Peso"
+                value={formulario.peso}
+                onChange={cambiarCampo}
+                />
+
+                <button type="submit">
+                    Agregar Persona
+                </button>
+
+            </form>
+
+            {
+                error &&
+                <p className="error">
+                    {error}
+                </p>
+            }
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Edad</th>
+                        <th>Altura (cm) </th>
+                        <th>Peso</th>
+                        <th>IMC</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {
+                    personas.map(
+                    (persona,indice)=>
+                    {
+                        const imc =
+                        calcularIMC(
+                            persona.peso,
+                            persona.altura
+                        );
+
+                        return(
+                            <tr key={indice}>
+
+                                <td>{persona.nombre}</td>
+                                <td>{persona.apellido}</td>
+                                <td>{persona.edad}</td>
+                                <td>{persona.altura}</td>
+                                <td>{persona.peso}</td>
+
+                                <td>{imc}</td>
+
+                                <td>
+                                {
+                                    clasificarIMC(imc)
+                                }
+                                </td>
+
+                                <td>
+
+                                    <button
+                                    onClick={() =>
+                                    eliminarPersona(indice)}
+                                    >
+                                        Eliminar
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                        );
+                    })
+                }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    );
+}
+
+const root =
+ReactDOM.createRoot(
+document.getElementById("root")
+);
+
+root.render(<App />);
+
+</script>
+
+</body>
+
+</html>
