@@ -1,10 +1,10 @@
 const productos = [
 {
-    nombre:"Mouse Gamer RGB",
+    nombre:"Mouse Gamer RGB Hyperx",
     precio:15000
 },
 {
-    nombre:"Teclado Mecánico",
+    nombre:"Teclado Mecánico Red Dragon",
     precio:45000
 },
 {
@@ -12,10 +12,29 @@ const productos = [
     precio:180000
 },
 {
-    nombre:"Auriculares HyperX",
+    nombre:"Auriculares HyperX Cloud Stinger Core",
     precio:35000
 },
-
+{
+    nombre:"Webcam Logitech",
+    precio:28000
+},
+{
+    nombre:"Parlantes Bluetooth Gadnic",
+    precio:22000
+},
+{
+    nombre:"Mouse Pad Netmak 120cm",
+    precio:15000
+},
+{
+    nombre:"Joystick Playstation 4 Inalambrico Original",
+    precio:32000
+},
+{
+    nombre:"Router TP link 2 antenas",
+    precio:24000
+}
 ];
 
 const contenedor =
